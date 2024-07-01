@@ -66,6 +66,8 @@ class ProductViewModel(val productDao: ProductDao): ViewModel() {
         new()
     }
 
+    fun getAll() = productDao.getAll()
+
 
 
 
