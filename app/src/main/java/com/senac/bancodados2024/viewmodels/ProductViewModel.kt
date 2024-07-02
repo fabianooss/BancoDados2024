@@ -7,6 +7,8 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.senac.bancodados2024.bd.AppDatabase
 import com.senac.bancodados2024.dao.ProductDao
 import com.senac.bancodados2024.entities.Product
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -68,6 +70,13 @@ class ProductViewModel(val productDao: ProductDao): ViewModel() {
 
     fun getAll() = productDao.getAll()
 
+
+    suspend fun findById(id: Long): Product? {
+        val deferred : Deferred<Product?> = viewModelScope.async {
+            productDao.findById(id)
+        }
+        return deferred.await()
+    }
 
 
 

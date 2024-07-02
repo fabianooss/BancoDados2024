@@ -25,9 +25,11 @@ interface ProductDao {
     fun getAll(): Flow<List<Product>>
 
     @Query("select * from product p where p.id = :id")
-    fun findById(id: Long) : Product?
+    suspend fun findById(id: Long) : Product?
 
     @Delete
     fun delete(product: Product)
+
+
 
 }

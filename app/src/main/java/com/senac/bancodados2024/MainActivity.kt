@@ -31,6 +31,8 @@ import com.senac.bancodados2024.bd.AppDatabase
 import com.senac.bancodados2024.ui.theme.BancoDados2024Theme
 import com.senac.bancodados2024.viewmodels.ProductViewModel
 import com.senac.bancodados2024.viewmodels.ProductViewModelFactory
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +99,21 @@ fun MyApplication() {
                 }) {
                     Text(text = "Save/New")
                 }
+                Button(onClick = {
+                    MainScope().launch {
+                        val product = productViewModel.findById(2)
+                        Toast.makeText(ctx, product?.name,
+                            Toast.LENGTH_SHORT).show()
+
+
+                    }
+
+
+
+
+                }) {
+                    Text(text = "Find id 2")
+                }
             }
             val productItems = productViewModel.getAll().collectAsState(initial = emptyList())
             LazyColumn() {
@@ -107,6 +124,7 @@ fun MyApplication() {
                     }
                 }
             }
+
 
         }
     }
